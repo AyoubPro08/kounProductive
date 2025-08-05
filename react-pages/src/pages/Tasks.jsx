@@ -1,23 +1,14 @@
 import { useState, useEffect, useCallback } from "react"
 import '../components/css/tasks.css'
 import  Task from '../components/Task.jsx'
+import { useTasks } from '../contexts/TaskContext';
 import PopUp from "../components/PopUp.jsx";
 
 
 function Tasks() {
 
-    const [tasks, setTasks] = useState([
-        {
-            name:'Study Math',
-            date:'2025-07-23',
-            id:'Id1'
-        },
-        {
-            name:'Work on my Soft Skills',
-            date: new Date().toLocaleDateString(),
-            id:Date.now()
-        }
-    ]);
+    const {taskData, setTaskData} = useTasks();
+
 
 
     const [inputValue, setInputValue] = useState("");
@@ -32,10 +23,10 @@ function Tasks() {
             id: Date.now()
         };
 
-        setTasks([...tasks, newTask]);
+        setTaskData([...taskData, newTask]);
         setInputValue("");
         setDateValue("")
-    }, [inputValue, dateValue, tasks]);
+    }, [inputValue, dateValue, taskData, setTaskData]);
 
 
     useEffect(() => {
@@ -85,7 +76,7 @@ function Tasks() {
                 <button onClick={addTask}>Add</button>
             </div>
             <div className="tasksContainer">
-                {tasks.map((task) => 
+                {taskData.map((task) => 
                     <Task 
                         id={task.id}
                         name={task.name}
@@ -93,7 +84,7 @@ function Tasks() {
                         key={task.id}
                         onDelete=
                             {(idToDelete) =>{
-                                setTasks(
+                                setTaskData(
                                     prev => prev.filter(
                                         task => 
                                             task.id !== idToDelete
@@ -123,7 +114,7 @@ function Tasks() {
                                 setTaskBeingEdited(null)
                                 return;
                             }
-                            setTasks(prevTasks =>
+                            setTaskData(prevTasks =>
                                 prevTasks.map(task =>
                                     task.id === taskBeingEdited.id
                                     ? { ...task, name: editedName, date: editedDate }
