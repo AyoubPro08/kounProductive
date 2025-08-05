@@ -1,0 +1,17 @@
+.Title {
+    font-size: 3rem;
+}
+
+.UpcomingEvents, .StatsOverview {
+    background-color: #252525;
+    border: none;
+    border-radius: 20px;
+    height: 200px;
+    width: 1000px;
+}
+
+.DashboardContainer {
+  align-items: top;
+  color: whitesmoke;
+}
+

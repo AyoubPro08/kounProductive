@@ -1,0 +1,80 @@
+.Sidebar {
+  display:flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 250px;
+  background-color: #202020;
+  color: #9B9B9B;
+  font-weight: 300;
+  z-index: 100;
+  box-shadow: 0 0 5px rgba(140, 139, 139, 0.1);
+}
+
+.ShowSidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.ShowSidebar img {
+  margin-top: 5px;
+  margin-left: 5px;
+  width: 26px;
+  height: 26px;
+  z-index: 150;
+}
+
+
+.SidebarTop {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 25px;
+  padding-left: 15px;
+  margin-top: 20px;
+  padding-top: 10%;
+}
+
+.SidebarLinks ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 60vh;
+  padding-top: 25%;
+}
+
+.SidebarLinks li {
+  list-style: none;
+  font-style: none;
+  text-decoration: none;
+
+}
+
+.SidebarLinks li:hover{
+    background-color: #2C2C2C;
+    color: white;
+}
+
+.SidebarLinks img{
+    height: 26px;
+    width: 26px;
+}
+
+.SidebarLinks a {
+  font-size: 16px;
+  height: 45px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.055); 
+  /*color: rgba(255, 255, 255, 0.81);*/
+  display: block;
+  width: 100%;
+  align-content: center;
+  text-align: center;
+}

@@ -1,0 +1,22 @@
+Todos:
+    . Make the the entirety of the login and callout button as link not just the text they hold (DONE)
+    
+    . Check up on the wrongly extended use of padding rather than it plus margin in the index.css and change the instances where that is the case
+    . Work on the login.html page
+
+
+
+
+Notes:
+
+
+. To make the entire button responsibe as a link you should delete in it's entirety and instead build it using css properties like border of the text.
+    Follow up:I have done exactly that but it still the same thing the link wouldn't work unless you are clicking on the text and nothing else.
+    Update: I found out that it was working all along but the button I tested it with had some Problems
+
+
+. Padding is the space between the text and the button border for example, meanwhile Margin is the space between sections and between the element and page limit for example
+
+
+Problems:
+. The links of the navigation bar that takes to different sections of the website stick exactly to the top of the section when using margin even though margin is the correct way to use it. ( Padding was used temporarely to solve that problem)

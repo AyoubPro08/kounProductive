@@ -1,0 +1,271 @@
+body{
+    font-size: 25px;
+    padding-top: 75px;
+    min-height: 100vh;
+}
+html{
+    scroll-behavior: smooth;
+    background-color: 071422;
+    color:white;
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    height: 50vh;
+    width: 250px;
+    background-color: #132030;
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    margin-top: 0;
+    display: none;
+
+}
+
+.sidebar img{
+    height: 26px;
+    width: 26px;
+}
+
+
+.sidebar li{
+    width: 100%;
+    padding: 0;
+    
+}
+
+.sidebar li:hover{
+    background-color: #0d2641;
+}
+
+.sidebar a {
+    font-size: 16px;
+    width: 100%;
+    padding: 0;
+    margin-left: 20%;
+}
+
+
+nav{
+    padding: 10px 20px;
+    font-size: 36px;
+    font-family: 'Merriweather';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #071422;
+    
+
+}
+
+
+
+
+nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+
+nav li {
+    height: 50px;
+}
+
+
+
+nav a {
+    height: 100%;
+    padding: 0 30px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: white;
+    
+
+}
+
+
+nav a:hover{
+    color:rgb(54, 255, 208);
+}
+
+
+nav li:first-child{
+    margin-right: auto;
+}
+
+
+nav img{
+    height: 36px;
+    width: 36px;
+}
+
+
+.logo{ /*In my case this is basically the kounProductive link it takes part of the navbar but it is separated from the other links*/
+    font-size: 1.5em;
+    font-weight: bold;
+    color: ffffff;
+    text-decoration: none;
+    padding-right:50px;
+}
+.logo-part-1{
+    font-weight: 100;
+}
+
+.logo-part-2{
+    font-weight: 900;
+}
+.nav-links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    font-family: 'Merriweather';
+    width: 520px;
+    flex-shrink: 0;
+
+}
+
+.link-about {
+    white-space: nowrap;
+}
+
+.nav-links a{
+    /*margin-left: 40px;*/
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 1em;
+    width: 100%;
+}
+
+.link-login a{
+    background-color: rgb(54, 255, 208); 
+    height: 65px;
+    width: 175px;
+    border: none;
+    border-style: none;
+    border-radius: 32px;
+    cursor:pointer;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Merriweather';    
+    font-weight: 500;
+    text-align: center;
+    color: #071422;
+    padding: 8px 30px 8px;
+    transition: opacity 0.15s;  
+    
+}
+
+.link-login a:hover{
+    opacity: 0.5;
+}
+
+
+/*This is the end of the navigation bar style and the beginning of the style for the hero section*/
+
+main{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 8%;
+}
+
+
+.hero-section-part-1 {
+    color: rgb(54, 255, 208);
+    font-family: 'inter';
+}
+
+.hero-section-part-2 {
+    font-family: 'Merriweather';
+    font-size: 2em;
+}
+
+.hero-section-part-3 {
+    font-family: inter;
+}
+
+
+.callout{
+    font-family: Merriweather;
+    border-radius: 25px;
+    border-style: none;
+    border: none;
+    width: 300px;
+    height: 50px;
+    background-color: rgb(54, 255, 208);
+    padding: 10px 40px 10px;   
+    margin-top: 5%;
+    cursor: pointer;
+    font-size: x-large;
+    align-self: center;
+    color: 071422;
+    text-decoration: none;
+    transition: opacity 0.15s;
+}
+
+.callout:hover{
+    opacity: 0.15;
+}
+
+
+#about{
+    padding: 5% 5% 15%;
+}
+
+
+
+
+footer{
+    text-align: center;
+    padding-top: 6%;
+    padding-bottom: 15%;
+}
+
+.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    padding-top: 5%;
+}
+
+.icon img{
+    height:50px;
+    width: 50px;
+}
+
+
+.menu-button {
+    display: none;
+}
+
+
+
+@media(max-width:1100px){
+    .hideOnMobile{
+        display: none;
+    }
+    .menu-button{
+        display: block;
+    }
+}
+
+@media(max-width:400px){
+    .sidebar{
+        width: 100%;
+    }
+}
+
