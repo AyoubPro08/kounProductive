@@ -57,7 +57,7 @@ function Sidebar() {
                     <a href="">Habit Tracker</a>
                 </li>
                 <li>
-                    <a href="">Journal</a>
+                    <Link to="/journal">Journal</Link>
                 </li>
                 <li>
                     <a href="">Calendar</a>

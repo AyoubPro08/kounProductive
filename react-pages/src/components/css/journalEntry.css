@@ -1,0 +1,80 @@
+.journal-entry {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 15px;
+}
+.entry-selection-checkbox{
+    margin-left: 5px;
+    height: 20px;
+    width: 20px;
+}
+.entry-date{
+    margin-left: 10px;
+    width: 50px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: lighter;
+    color: rgb(136, 136, 136);
+}
+.entry-content {
+    /* Remove default textarea styling */
+    border: none;
+    outline: none;
+    resize: none;
+    
+    /* Match div styling */
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    
+    /* Control size and overflow */
+    width: 100%;
+    overflow-y: auto;  /* Add scrollbar when needed */
+    field-sizing: content;
+    /* Padding and spacing */
+    padding: 8px;
+    margin: 0;
+    
+    /* Text styling */
+    line-height: 1.2;
+    word-wrap: break-word;
+    white-space: pre-wrap; /* Preserve line breaks */
+    
+    /* Remove focus styling */
+    box-shadow: none;
+    
+    /* Make it look non-editable */
+    cursor: default;
+    user-select: text; /* Allow text selection */
+}
+
+.entry-content:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+/* Optional: Add subtle hover effect */
+.entry-content:hover {
+    background-color: rgb(64,64,64);
+}
+textarea::-webkit-scrollbar {
+    width: 4px; /* Make it very thin */
+}
+
+textarea::-webkit-scrollbar-track {
+    background: transparent; /* Hide track */
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2); /* Light, subtle thumb */
+    border-radius: 2px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.4); /* Slightly darker on hover */
+}

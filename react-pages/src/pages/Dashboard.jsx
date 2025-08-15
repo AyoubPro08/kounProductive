@@ -34,10 +34,9 @@ function Dashboard() {
                                                             Check
                                                         </Link>
                                                     </button>
-                                                    <button
+                                                    <button className="remove-button-dashboard"
                                                         id={task.id}
                                                         key={crypto.randomUUID()}
-                                                        className="remove-button-dashboard"
                                                         onClick={() => {setTaskData(
                                                             prev => prev.filter(t => t.id!==task.id)
                                                         )}}>
