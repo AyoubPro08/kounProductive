@@ -1,26 +1,53 @@
+import axios from "axios";
 import { useState, useEffect, useCallback } from "react"
-import '../components/css/tasks.css'
-import  Task from '../components/Task.jsx'
 import { useTasks } from '../contexts/TaskContext';
+import  Task from '../components/Task.jsx'
 import PopUp from "../components/PopUp.jsx";
+import '../components/css/tasks.css'
 
+async function getTasks() {
+    try {
+        const response = await axios.get("http://localhost:3000/api/v1/tasks")
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
 
 function Tasks() {
 
     const {taskData, setTaskData} = useTasks();
 
-
+    useEffect(() => {
+        (async() => {
+            const data = await getTasks();
+            setTaskData(data.tasks);
+            console.log("Fetched tasks: ", data)
+        })();
+    }, [setTaskData])
 
     const [inputValue, setInputValue] = useState("");
     const [dateValue, setDateValue] = useState("")
 
     const addTask = useCallback(() => {
+
         if (inputValue.trim() === "") return;
+
+        axios({
+            method:'post',
+            url:'http://localhost:3000/api/v1/tasks',
+            data:{
+                name:inputValue,
+                date:dateValue || new Date().toLocaleDateString(['fr-FR'])
+            }
+        });
+
         
         const newTask = {
+            _id: crypto.randomUUID(),
             name:inputValue,
-            date: dateValue || new Date().toLocaleDateString(['fr-FR']),
-            id: Date.now()
+            date: dateValue || new Date().toLocaleDateString(['fr-FR'])
         };
 
         setTaskData([...taskData, newTask]);
@@ -78,17 +105,22 @@ function Tasks() {
             <div className="tasksContainer">
                 {taskData.map((task) => 
                     <Task 
-                        id={task.id}
+                        key={task._id}
+                        id={task._id}
                         name={task.name}
-                        date={task.date}
-                        key={task.id}
+                        date={new Date(task.date).toISOString().split("T")[0]}
                         onDelete=
                             {(idToDelete) =>{
-                                setTaskData(
-                                    prev => prev.filter(
-                                        task => 
-                                            task.id !== idToDelete
-                                    ))
+                                axios.delete(`http://localhost:3000/api/v1/tasks/${idToDelete}`)
+                                    .then(() => {
+                                        setTaskData(
+                                            prev => prev.filter(
+                                                task => 
+                                                    task._id !== idToDelete
+                                        ))
+                                    })
+                                    .catch((error) => {console.log(error)})
+                                
                                 setIsEditing(false)
                                 setTaskBeingEdited(null)
                             }}
@@ -102,7 +134,8 @@ function Tasks() {
                 {isEditing && 
                     <PopUp
                         className='popUp'
-                        name={taskBeingEdited}
+                        name={taskBeingEdited?.name || ""}
+                        date={taskBeingEdited ? new Date(taskBeingEdited.date).toISOString().split("T")[0] : ""}
                         closePopUp={() => {
                             setIsEditing(false);
                             setTaskBeingEdited(null)
@@ -114,13 +147,20 @@ function Tasks() {
                                 setTaskBeingEdited(null)
                                 return;
                             }
-                            setTaskData(prevTasks =>
-                                prevTasks.map(task =>
-                                    task.id === taskBeingEdited.id
-                                    ? { ...task, name: editedName, date: editedDate }
-                                    : task
-                                )
-                            );
+                            axios.patch(`http://localhost:3000/api/v1/tasks/${taskBeingEdited._id}`, {
+                                name: editedName,
+                                date: new Date(editedDate).toISOString()
+                            })
+                                .then(res => {
+                                    const updatedTask = res.data.task;
+                                    setTaskData(prevTasks =>
+                                        prevTasks.map(task =>
+                                        task._id === updatedTask._id ? updatedTask : task
+                                        )
+                                    );
+                                })
+                                .catch(err => console.log(err));
+                                
                             setIsEditing(false)
                             setTaskBeingEdited(null)
                         }}  

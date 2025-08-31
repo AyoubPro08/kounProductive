@@ -3,7 +3,7 @@ import './css/PopUp.css'
 import { useRef, useEffect } from 'react';
 
 
-function PopUp({name, closePopUp, modifyTask}) {
+function PopUp({name, date, closePopUp, modifyTask}) {
 
     const nameInputRef = useRef(null)
 
@@ -23,8 +23,8 @@ function PopUp({name, closePopUp, modifyTask}) {
     useEffect(() => {nameInputRef.current?.select()}, []);
 
 
-    const [editedInputValue, setEditedInputValue] = useState(name.name);
-    const [editedDateValue, setEditedDateValue] = useState(name.date);
+    const [editedInputValue, setEditedInputValue] = useState(name);
+    const [editedDateValue, setEditedDateValue] = useState(date);
     
     return (
         <div className='modal-wrapper'>
