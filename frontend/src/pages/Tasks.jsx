@@ -7,7 +7,7 @@ import '../components/css/tasks.css'
 
 async function getTasks() {
     try {
-        const response = await axios.get("http://localhost:3000/api/v1/tasks")
+        const response = await axios.get("/tasks")
         return response.data;
     } catch (error) {
         console.log(error);
@@ -36,7 +36,7 @@ function Tasks() {
 
         axios({
             method:'post',
-            url:'http://localhost:3000/api/v1/tasks',
+            url:'/tasks',
             data:{
                 name:inputValue,
                 date:dateValue || new Date().toLocaleDateString(['fr-FR'])
@@ -111,7 +111,7 @@ function Tasks() {
                         date={new Date(task.date).toISOString().split("T")[0]}
                         onDelete=
                             {(idToDelete) =>{
-                                axios.delete(`http://localhost:3000/api/v1/tasks/${idToDelete}`)
+                                axios.delete(`/tasks/${idToDelete}`)
                                     .then(() => {
                                         setTaskData(
                                             prev => prev.filter(
@@ -147,7 +147,7 @@ function Tasks() {
                                 setTaskBeingEdited(null)
                                 return;
                             }
-                            axios.patch(`http://localhost:3000/api/v1/tasks/${taskBeingEdited._id}`, {
+                            axios.patch(`/tasks/${taskBeingEdited._id}`, {
                                 name: editedName,
                                 date: new Date(editedDate).toISOString()
                             })

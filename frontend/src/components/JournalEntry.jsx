@@ -22,9 +22,7 @@ function JournalEntry({id, content, date, onCheckChange}) {
                 checked={isChecked}
                 onChange={handleCheckChange}/>
             <div className='entry-date'>{date}</div>
-            <textarea className='entry-content'>
-                {content}
-            </textarea>
+            <textarea className='entry-content' value={content} readOnly/>
         </div>
     )
 }

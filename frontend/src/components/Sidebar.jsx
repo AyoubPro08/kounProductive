@@ -48,19 +48,19 @@ function Sidebar() {
                     <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>  
-                    <a href="">School</a>
+                    <a href="/school">School</a>
                 </li>
                 <li>
                     <Link to="/tasks">Tasks</Link>
                 </li>
                 <li>
-                    <a href="">Habit Tracker</a>
+                    <a href="/habittracker">Habit Tracker</a>
                 </li>
                 <li>
                     <Link to="/journal">Journal</Link>
                 </li>
                 <li>
-                    <a href="">Calendar</a>
+                    <a href="/calendar">Calendar</a>
                 </li>
               </ul>
             </div>

@@ -1,4 +1,4 @@
-function HabitTracker() {
+function School() {
     return (
         <>
             <h1>Comming Soon</h1>
@@ -6,4 +6,4 @@ function HabitTracker() {
     )
 }
 
-export default HabitTracker
+export default School

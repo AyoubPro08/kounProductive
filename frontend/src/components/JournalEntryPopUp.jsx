@@ -19,31 +19,20 @@ function JournalEntryPopUp({closePopUp, addJournalEntry}) {
 
     }
 
-    const formatDateString = (dateString) => {
-        if (!dateString) return new Date().toLocaleDateString('en-US', {
-            weekday: 'short',
-            day: '2-digit',
-            month: 'short',
-        });
-        
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
-            weekday: 'short',
-            day: '2-digit',
-            month: 'short',
-        });
-    };
-    
-
     const handleAddEntry = () => {
         if (!inputContentValue.trim()) {
             alert("Please enter some content!");
             return;
         }
-        const formattedDate = formatDateString(inputDateValue);
-        addJournalEntry(inputContentValue, formattedDate);
+
+        // If user picked a date, use it; otherwise use today's date
+        const rawDate = inputDateValue ? new Date(inputDateValue) : new Date();
+
+        // ✅ Pass the raw Date object, not formatted string
+        addJournalEntry(inputContentValue, rawDate);
+
         closePopUp();
-    }
+    };
 
     return (
         <div className='modal-wrapper'>

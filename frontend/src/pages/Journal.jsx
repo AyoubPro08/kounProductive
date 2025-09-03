@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react"
+import axios from 'axios';
+import { useState, useCallback, useEffect } from "react"
 import DatePicker from "react-datepicker"
 import JournalEntry from "../components/JournalEntry";
 import JournalEntryPopUp from '../components/JournalEntryPopUp.jsx';
@@ -6,27 +7,39 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../components/css/journal.css"
 
 
+async function getJournalEntries() {
+    try {
+        const response = await axios.get('/journal')
+        return response.data
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
 function Journal(){
     
     const [journalDateValue, setJournalDateValue] = useState();
     const [checkedEntries, setCheckedEntries] = useState([])
-    const [journalData, setJournalData] = useState([
-        {
-            content:"I did this and this.",
-            id:crypto.randomUUID(),
-            date: "Sun, Aug 10"
-        },
-        {
-            content:"I went to this place and that place on that day.",
-            id:crypto.randomUUID(),
-            date: "Sat, Aug 09"
-        },
-        {
-            content:"I ate this that time, and I drank this at that other time.",
-            id:crypto.randomUUID(),
-            date: "Sun, Aug 03"
-        }
-    ])
+    const [journalData, setJournalData] = useState([])
+
+    useEffect(()=> {
+        (async()=>{
+            const data = await getJournalEntries();
+            setJournalData(
+            data.map(entry => ({
+                id: entry._id,
+                content: entry.content,
+                date: new Date(entry.date).toLocaleDateString("en-US", {
+                    weekday: "short",
+                    month: "short",
+                    day: "2-digit"
+                })
+            }))
+        );
+            console.log("Fetched data: ", data)
+        })()
+    }, [])
 
     const [isAddingEntry, setIsAddingEntry] = useState(false)
 
@@ -38,14 +51,31 @@ function Journal(){
         setIsAddingEntry(false);
     }, []);
 
-    const addEntry = (content, date) => {
-        const newEntry = {
-            content:content,
-            id:crypto.randomUUID(),
-            date:date || new Date().toLocaleString()
+    const addEntry = async (content, date) => {
+        try {
+            const response = await axios.post("/journal", {
+                content,
+                date: date || new Date()
+            });
+
+            const savedEntry = response.data;
+
+            setJournalData([
+            ...journalData,
+            {
+                id: savedEntry._id,
+                content: savedEntry.content,
+                date: new Date(savedEntry.date).toLocaleDateString("en-US", {
+                weekday: "short",
+                month: "short",
+                day: "2-digit"
+                })
+            }
+            ]);
+        } catch (error) {
+            console.error("Error saving entry:", error);
         }
-        setJournalData([...journalData, newEntry])
-    }
+    };
 
     const handleEntryCheck = (entryId, isChecked) => {
         if (isChecked) {
@@ -55,10 +85,24 @@ function Journal(){
         }
     };
 
-    const deleteEntries = () => {
-        setJournalData(prev => prev.filter(entry => !checkedEntries.includes(entry.id)));
-        setCheckedEntries([]);
-    }
+    const deleteEntries = async () => {
+        try {
+            // Use Promise.all so deletes happen in parallel
+            await Promise.all(
+                journalData
+                    .filter(journalEntry => checkedEntries.includes(journalEntry.id))
+                    .map(journalEntry =>
+                        axios.delete(`/journal/${journalEntry.id}`)
+                    )
+            );
+
+            // Update state after deletion
+            setJournalData(prev => prev.filter(entry => !checkedEntries.includes(entry.id)));
+            setCheckedEntries([]);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const formatDateString = (dateString) => {
         // Handle when journalDateValue is a Date object from DatePicker
@@ -117,7 +161,11 @@ function Journal(){
                             key={journalEntry.id}
                             id={journalEntry.id}
                             content={journalEntry.content}
-                            date={journalEntry.date}
+                            date={new Date(journalEntry.date).toLocaleDateString("en-US", {
+                                weekday: "short",
+                                month: "short",
+                                day: "2-digit"
+                            })}
                             onCheckChange={handleEntryCheck}
                         />
                     ))}

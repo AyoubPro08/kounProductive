@@ -1,0 +1,13 @@
+{
+  "name": "koun-productive",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build --prefix frontend && npm start --prefix backend",
+    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
